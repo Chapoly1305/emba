@@ -128,7 +128,12 @@ log_folder() {
       echo -e "        ""$(orange "${lD_LOG_FILE}")"
     done
     echo -e "\\n${ORANGE}Continue to run EMBA and ignore this warning?${NC}\\n"
-    read -p "(Y/n)  " -r lUSER_ANSWER
+    if [[ ${OVERWRITE_LOG} -eq 1 ]] ; then
+      lUSER_ANSWER="y"
+      echo -e "Continuing automatically due to -y flag..."
+    else
+      read -p "(Y/n)  " -r lUSER_ANSWER
+    fi
     case ${lUSER_ANSWER:0:1} in
         y|Y|"" )
           print_ln "no_log"
